@@ -9,6 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RG Camaras</title>
 
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+
     <script src="https://kit.fontawesome.com/445a48d6eb.js" crossorigin="anonymous"></script>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
@@ -56,7 +58,7 @@
 
                 <div class="row">
                     <div class="col-lg-7">
-                            <img src="img/pepe.png" alt="logo" height="70px" size="40px">
+                            <img src="img/logo.png" alt="logo" height="70px" size="40px">
                     </div>
                     <div class="col-lg-5">
                         <div class="header__top__right">
@@ -77,31 +79,46 @@
     <section class="hero spad set-bg" data-setbg="img/main.jpg">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-5" style="margin-bottom: 50px">
                     <div class="main__text">
-                        <span style="color: white">Cámaras inteligentes </span>
-                        <h2 style="color: #211c1c">Viva tranquilo sabiendo que alguien vigila por usted</h2>
+                        <span style="color: black">Cámaras inteligentes </span>
+                        <h2 style="color: white; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Viví tranquilo. Vigilá tu propiedad desde la palma de tu mano.</h2>
                     </div>
                 </div>
-                <div class="col-lg-4"></div>
+                <div class="col-lg-3">
+                    <div></div>
+                </div>
                 <div class="col-lg-4">
-                    <div class="consultation__form">
+                    <div id="main_form" class="consultation__form" >
                         <div class="section-title">
-                            <span>NO DUDE EN</span>
+                            <span>NO DUDES EN</span>
                             <h2>Consultarnos</h2>
                         </div>
-                        <form action="#">
-                            <input type="text" placeholder="Name">
-                            <input type="text" placeholder="Email(opcional)">
-                            <input type="number" placeholder="Teléfono(opcional)">
+                        <form name="inquiryForm" target="#" id="inquiryForm" >
+                            <input name="name" required type="text" placeholder="Name">
+                            <input name="email" required type="email" placeholder="Email">
+                            <input name="phone" type="number" placeholder="Teléfono(opcional)">
                             <div>
-                                <textarea name="consulta" id="consulta" cols="50" rows="20" style="height: 100px" placeholder="Escriba su consulta"></textarea>
+                                <textarea name="msg" required id="consulta" cols="50" rows="20" style="height: 100px" placeholder="Escriba su consulta"></textarea>
                             </div>
-                            <button type="submit" class="site-btn">Enviar consulta</button>
+                            <button type="button" class="site-btn" onclick="sendInquiry()">Enviar consulta</button>
                         </form>
                     </div>
+
+                    <div id="success_form" class="consultation__form" style="display: none">
+
+                        <div style="text-align: center; font-size: 61px; color: #39b083 ">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+
+                        <br>
+                            <h4 style="text-align: center; font-weight: bold">Gracias por la consulta</h4>
+                            <br>
+                            <h5 style="text-align: center;">Uno de nuestros representantes se comunicará a la brevedad</h5>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
         </div>
     </section>
     <!-- Hero Section End -->
@@ -191,5 +208,42 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 </body>
+
+<script>
+    function sendInquiry() {
+        //e.preventDefault();
+        console.log("AQUI")
+        let form = document.querySelector("#inquiryForm");
+        // var form = document.forms[0];
+        if (!form.reportValidity()) {
+            return
+        }
+
+        let data = {
+            name : form.querySelector('input[name="name"]').value,
+            email : form.querySelector('input[name="email"]').value,
+            phone : form.querySelector('input[name="phone"]').value,
+            msg : form.querySelector('textarea[name="msg"]').value
+        }
+
+        fetch('http://52.67.221.139:3000/inquiry', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        }).then(() => {
+            form.querySelector('input[name="name"]').reportValidity()
+
+            form.querySelector('input[name="name"]').value = ''
+            form.querySelector('input[name="email"]').value = ''
+            form.querySelector('input[name="phone"]').value = ''
+            form.querySelector('textarea[name="msg"]').value = ''
+
+            document.querySelector('#success_form').style.display = 'block'
+            document.querySelector('#main_form').style.display = 'none'
+        })
+    };
+</script>
 
 </html>

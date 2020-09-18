@@ -178,7 +178,7 @@ ol {
 .site-btn {
 	font-size: 15px;
 	color: #ffffff;
-	background: #4d2c1c;
+	background: #0d3259;
 	font-weight: 600;
 	border: none;
 	border-radius: 5px;
@@ -278,6 +278,41 @@ ol {
 
 .header__top__left li:last-child {
 	margin-right: 0;
+}
+
+
+.swal2-icon.swal2-success {
+	border-color: #a5dc86;
+}
+[class^="swal2"] {
+	-webkit-tap-highlight-color: transparent;
+}
+.swal2-icon {
+	position: relative;
+	justify-content: center;
+	width: 5em;
+	height: 5em;
+	margin: 1.25em auto 1.875em;
+	border: .25em solid transparent;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	border-left-color: transparent;
+	border-radius: 50%;
+	line-height: 5em;
+	cursor: default;
+	box-sizing: content-box;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	zoom: normal;
+}
+
+.swal2-popup .swal2-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .header__top__left li i {
